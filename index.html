@@ -925,6 +925,9 @@
         <label class="form-label" for="bf-notes">Questions or notes</label>
         <textarea class="form-textarea" id="bf-notes" name="entry.1873495350" placeholder="Anything else we should know?"></textarea>
       </div>
+      <div id="bf-date-warn" style="display:none; background:rgba(224,85,85,0.15); border:1px solid rgba(224,85,85,0.4); border-radius:var(--radius-sm); padding:10px 14px; font-size:13px; color:#f8a0a0;">
+        Those dates overlap with an existing confirmed rental for that trailer. Please choose different dates or call us at (260) 327-1340.
+      </div>
       <button class="form-submit" type="submit" id="bf-submit">Request rental &rarr;</button>
       <div class="form-success" id="bf-success">
         <div class="form-success-icon">&#10003;</div>
@@ -1088,6 +1091,48 @@
   (function() {
     var SITE_KEY = '6Le0ZDgtAAAADKTM19mynSELYngqBicoOjbVXKN';
     var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxA8PTvAHQnJpNhSoeaGtUuRVV8GdMfQFEChGGyzE-FcFEVsnzEtuMRRIZkCLrC7EP7/exec';
+
+    // Load confirmed bookings via JSONP
+    var bookedRanges = [];
+    window._availCallback = function(data) {
+      bookedRanges = data.booked || [];
+    };
+    var s = document.createElement('script');
+    s.src = SCRIPT_URL + '?callback=_availCallback';
+    document.head.appendChild(s);
+
+    function dateStr(d) { return d.toISOString().slice(0, 10); }
+
+    function overlaps(pickup, ret, trailer) {
+      if (!pickup || !ret) return false;
+      return bookedRanges.some(function(b) {
+        if (trailer && b.trailer && b.trailer.indexOf(trailer.slice(0, 3)) === -1) return false;
+        return pickup <= b.returnDate && ret >= b.pickup;
+      });
+    }
+
+    function checkDates() {
+      var pickup  = document.getElementById('bf-pickup').value;
+      var ret     = document.getElementById('bf-return').value;
+      var trailer = document.getElementById('bf-trailer').value;
+      var warn    = document.getElementById('bf-date-warn');
+      if (pickup && ret && overlaps(pickup, ret, trailer)) {
+        warn.style.display = 'block';
+      } else {
+        warn.style.display = 'none';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set min date to today
+      var today = dateStr(new Date());
+      document.getElementById('bf-pickup').min = today;
+      document.getElementById('bf-return').min = today;
+
+      document.getElementById('bf-pickup').addEventListener('change', checkDates);
+      document.getElementById('bf-return').addEventListener('change', checkDates);
+      document.getElementById('bf-trailer').addEventListener('change', checkDates);
+    });
 
     function sendPayload(form, btn, token) {
       var payload = {
