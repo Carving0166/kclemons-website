@@ -1118,7 +1118,11 @@
           if (!trailer) return true;
           return !b.trailer || b.trailer.indexOf(trailer.slice(0, 3)) !== -1;
         })
-        .map(function(b) { return { from: b.pickup, to: b.returnDate }; });
+        .map(function(b) {
+          var ret = new Date(b.returnDate + 'T00:00:00');
+          ret.setDate(ret.getDate() - 1);
+          return { from: b.pickup, to: ret.toISOString().slice(0, 10) };
+        });
     }
 
     function initPickers() {
