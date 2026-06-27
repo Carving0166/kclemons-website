@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Clemons Trailer Rentals — Dump trailers and utility trailers for rent in Warsaw, Indiana. No mileage fees. Day and week rates. Locally owned.">
+<title>Clemons Trailer Rentals — Warsaw, Indiana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark:   #1a2e1a;
+    --green-mid:    #2d4a2d;
+    --green-accent: #7ab648;
+    --green-light:  #eaf3de;
+    --green-text:   #3b6d11;
+    --tan:          #f7f5f0;
+    --white:        #ffffff;
+    --gray-100:     #f2f2f0;
+    --gray-200:     #e4e3df;
+    --gray-400:     #9b9994;
+    --gray-600:     #5c5b57;
+    --gray-900:     #1c1b19;
+    --radius-sm:    6px;
+    --radius-md:    10px;
+    --radius-lg:    16px;
+    --radius-xl:    24px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--gray-900);
+    background: var(--tan);
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247,245,240,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 1.5rem;
+  }
+  .nav-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--green-dark);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--green-accent); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--gray-900); }
+  .nav-cta {
+    background: var(--green-dark);
+    color: var(--white) !important;
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--green-mid) !important; }
+  .nav-mobile-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger { width: 22px; height: 2px; background: var(--gray-900); display: block; position: relative; }
+  .hamburger::before, .hamburger::after { content: ''; width: 22px; height: 2px; background: var(--gray-900); position: absolute; left: 0; }
+  .hamburger::before { top: -7px; }
+  .hamburger::after { top: 7px; }
+
+  /* HERO */
+  .hero {
+    background: var(--green-dark);
+    padding: 5rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    right: -80px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 60px solid rgba(122,182,72,0.08);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--green-accent);
+    font-weight: 400;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.62);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 420px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green-accent);
+    color: var(--green-dark);
+    padding: 13px 26px;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 13px 26px;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: white; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.05);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .stat-box:first-child { border-radius: var(--radius-lg) 0 0 0; }
+  .stat-val {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--green-accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 1.5rem;
+  }
+  .trust-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2.5rem;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-600);
+  }
+  .trust-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    flex-shrink: 0;
+  }
+
+  /* SECTIONS */
+  .section { padding: 4rem 1.5rem; }
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+  .section-alt { background: var(--white); }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-text);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 600;
+    color: var(--gray-900);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--gray-600);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  /* TRAILERS */
+  .trailers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .trailer-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .trailer-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+  .trailer-card.featured { border-color: var(--green-accent); border-width: 2px; }
+  .trailer-img-wrap {
+    height: 160px;
+    background: var(--green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .trailer-icon {
+    font-size: 64px;
+    line-height: 1;
+  }
+  .featured-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--green-dark);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+  }
+  .trailer-body { padding: 1.5rem; }
+  .trailer-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .trailer-tagline {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+  }
+  .specs-table { width: 100%; margin-bottom: 1.25rem; border-collapse: collapse; }
+  .specs-table tr { border-bottom: 1px solid var(--gray-100); }
+  .specs-table tr:last-child { border-bottom: none; }
+  .specs-table td { padding: 6px 0; font-size: 13px; }
+  .specs-table td:first-child { color: var(--gray-400); }
+  .specs-table td:last-child { text-align: right; font-weight: 500; color: var(--gray-900); }
+  .trailer-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--gray-200);
+  }
+  .price-block {}
+  .price-amount {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--green-text);
+    line-height: 1;
+  }
+  .price-unit { font-size: 13px; color: var(--gray-400); margin-top: 2px; }
+  .book-link {
+    background: var(--green-dark);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .book-link:hover { background: var(--green-mid); }
+
+  /* RATES TABLE */
+  .rates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .rate-card {
+    background: var(--tan);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+  }
+  .rate-card.highlight { background: var(--green-dark); border-color: var(--green-dark); }
+  .rate-trailer { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); margin-bottom: 1rem; }
+  .rate-card.highlight .rate-trailer { color: rgba(255,255,255,0.5); }
+  .rate-row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid var(--gray-200); }
+  .rate-card.highlight .rate-row { border-bottom-color: rgba(255,255,255,0.1); }
+  .rate-row:last-child { border-bottom: none; }
+  .rate-period { font-size: 14px; color: var(--gray-600); }
+  .rate-card.highlight .rate-period { color: rgba(255,255,255,0.65); }
+  .rate-amount { font-size: 16px; font-weight: 600; color: var(--gray-900); }
+  .rate-card.highlight .rate-amount { color: var(--green-accent); }
+  .rate-note {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  /* HOW IT WORKS */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    position: relative;
+  }
+  .step { position: relative; }
+  .step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--green-light);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+  .step-title { font-size: 16px; font-weight: 600; color: var(--gray-900); margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+
+  /* BOOKING */
+  .booking-section { background: var(--green-dark); }
+  .booking-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .booking-left {}
+  .booking-eyebrow { color: var(--green-accent); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.75rem; }
+  .booking-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .booking-desc { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 2rem; }
+  .booking-checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .booking-checklist li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: rgba(255,255,255,0.7); }
+  .check-icon { color: var(--green-accent); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+  .booking-embed {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  .booking-embed-icon { font-size: 40px; opacity: 0.4; }
+  .booking-embed-title { font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.7); }
+  .booking-embed-sub { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; max-width: 260px; }
+  .booking-embed-code {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    background: rgba(0,0,0,0.3);
+    color: var(--green-accent);
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    margin-top: 0.5rem;
+  }
+
+  /* FAQ */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .faq-item {
+    background: var(--tan);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+  }
+  .faq-q { font-size: 15px; font-weight: 600; color: var(--gray-900); margin-bottom: 8px; }
+  .faq-a { font-size: 14px; color: var(--gray-600); line-height: 1.65; }
+
+  /* REVIEWS */
+  .reviews-section { background: var(--tan); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .review-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .review-stars { color: #f5a623; font-size: 16px; letter-spacing: 2px; }
+  .review-text {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.65;
+    flex: 1;
+    font-style: italic;
+  }
+  .review-author {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-900);
+  }
+  .review-trailer {
+    font-size: 11px;
+    color: var(--gray-400);
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+  .reviews-summary {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .reviews-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--green-dark);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 2rem;
+    color: white;
+    min-width: 120px;
+  }
+  .score-num {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--green-accent);
+    line-height: 1;
+  }
+  .score-stars { color: #f5a623; font-size: 18px; margin: 4px 0; }
+  .score-label { font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; }
+  .reviews-blurb { font-size: 15px; color: var(--gray-600); line-height: 1.7; max-width: 480px; }
+  .contact-section {
+    background: var(--white);
+    padding: 4rem 1.5rem;
+  }
+  .contact-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--green-dark);
+    border-radius: var(--radius-xl);
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .contact-text {}
+  .contact-eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-accent); font-weight: 600; margin-bottom: 0.5rem; }
+  .contact-title { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+  .contact-sub { font-size: 15px; color: rgba(255,255,255,0.55); }
+  .contact-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 22px;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .contact-btn:hover { opacity: 0.85; }
+  .contact-btn.call { background: var(--green-accent); color: var(--green-dark); }
+  .contact-btn.email { background: rgba(255,255,255,0.1); color: var(--white); border: 1px solid rgba(255,255,255,0.2); }
+  .contact-number { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 0.75rem; text-align: right; }
+  .contact-number a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  .contact-number a:hover { color: rgba(255,255,255,0.6); }
+  .contact-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* FOOTER */
+  footer {
+    background: var(--green-dark);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .footer-inner { max-width: 1000px; margin: 0 auto; }
+  .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .footer-logo span { color: var(--green-accent); }
+  .footer-location { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.15s; }
+  .footer-links a:hover { color: rgba(255,255,255,0.9); }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: var(--tan);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 1rem 1.5rem;
+      gap: 1rem;
+    }
+    .nav-mobile-btn { display: block; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-stats { display: none; }
+    .booking-inner { grid-template-columns: 1fr; }
+    .contact-inner { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Clemons <span>Trailer</span> Rentals</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#trailers">Trailers</a></li>
+      <li><a href="#rates">Rates</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#booking" class="nav-cta">Book now</a></li>
+    </ul>
+    <button class="nav-mobile-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Open menu">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Warsaw, Indiana &mdash; Kosciusko County</p>
+      <h1>The trailer you need, <em>right here</em> in Warsaw.</h1>
+      <p class="hero-sub">Dump trailers and utility trailers for rent by the day or week. No mileage fees. No long lines. Locally owned and ready when you are.</p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn-primary">Book a trailer &rarr;</a>
+        <a href="#trailers" class="btn-ghost">See what&rsquo;s available</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-val">$60</div>
+        <div class="stat-label">dump trailer / day</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">$60</div>
+        <div class="stat-label">utility trailer / day</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">$0</div>
+        <div class="stat-label">mileage fees</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">2</div>
+        <div class="stat-label">trailers available</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="trust-dot"></span> Warsaw, IN pickup &amp; return</div>
+    <div class="trust-item"><span class="trust-dot"></span> No mileage charges</div>
+    <div class="trust-item"><span class="trust-dot"></span> Locally owned &amp; insured</div>
+    <div class="trust-item"><span class="trust-dot"></span> Day &amp; week rates available</div>
+    <div class="trust-item"><span class="trust-dot"></span> $150 refundable deposit</div>
+  </div>
+</div>
+
+<!-- TRAILERS -->
+<section class="section section-alt" id="trailers">
+  <div class="section-inner">
+    <p class="eyebrow">Our fleet</p>
+    <h2 class="section-title">Pick your trailer</h2>
+    <p class="section-sub">Two trailers, two jobs. Both inspected before every rental, both covered by a signed rental agreement that protects you and us.</p>
+    <div class="trailers-grid">
+
+      <div class="trailer-card featured">
+        <div class="trailer-img-wrap">
+          <span class="trailer-icon">🚛</span>
+          <span class="featured-badge">Most popular</span>
+        </div>
+        <div class="trailer-body">
+          <p class="trailer-name">5&times;8 Griffin Dump Trailer</p>
+          <p class="trailer-tagline">Hydraulic power up AND down — no shoveling, no manual cranking. Haul mulch, gravel, yard debris, and small demolition loads without breaking your back.</p>
+          <table class="specs-table">
+            <tr><td>Bed size</td><td>95.5&Prime; &times; 59.5&Prime; &times; 18&Prime;</td></tr>
+            <tr><td>GVWR</td><td>5,200 lbs</td></tr>
+            <tr><td>Payload</td><td>3,440 lbs</td></tr>
+            <tr><td>Coupler</td><td>2&#x2075;&#x2044;&#x2081;&#x2086;&Prime; A-Frame</td></tr>
+            <tr><td>Dump</td><td>12V DC hydraulic, power up &amp; down</td></tr>
+            <tr><td>Gate</td><td>Barn door</td></tr>
+          </table>
+          <div class="trailer-footer">
+            <div class="price-block">
+              <div class="price-amount">$60</div>
+              <div class="price-unit">per day</div>
+            </div>
+            <a href="#booking" class="book-link">Book this trailer</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trailer-card">
+        <div class="trailer-img-wrap">
+          <span class="trailer-icon">🏗️</span>
+        </div>
+        <div class="trailer-body">
+          <p class="trailer-name">16&prime; Utility Trailer</p>
+          <p class="trailer-tagline">Open flat deck with dovetail and ramp gate. Haul ATVs, mowers, landscaping equipment, furniture, and construction materials with ease.</p>
+          <table class="specs-table">
+            <tr><td>Deck</td><td>16 ft, dovetail rear</td></tr>
+            <tr><td>Width</td><td>75&Prime; (~6&prime; 3&Prime;)</td></tr>
+            <tr><td>GVWR</td><td>7,000 lbs</td></tr>
+            <tr><td>Axles</td><td>Dual 3,500 lb</td></tr>
+            <tr><td>Coupler</td><td>2&Prime; ball</td></tr>
+            <tr><td>Gate</td><td>Ramp gate w/ dovetail</td></tr>
+            <tr><td>Tie-downs</td><td>8 D-rings</td></tr>
+            <tr><td>Brand</td><td>Rogers Welding (2018)</td></tr>
+          </table>
+          <div class="trailer-footer">
+            <div class="price-block">
+              <div class="price-amount">$60</div>
+              <div class="price-unit">per day</div>
+            </div>
+            <a href="#booking" class="book-link">Book this trailer</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RATES -->
+<section class="section" id="rates">
+  <div class="section-inner">
+    <p class="eyebrow">Pricing</p>
+    <h2 class="section-title">Simple, flat rates</h2>
+    <p class="section-sub">What you see is what you pay. No mileage charges, no fuel surcharges, no surprises.</p>
+    <div class="rates-grid">
+      <div class="rate-card highlight">
+        <p class="rate-trailer">5&times;8 Dump Trailer</p>
+        <div class="rate-row"><span class="rate-period">Daily rate</span><span class="rate-amount">$60</span></div>
+        
+        <div class="rate-row"><span class="rate-period">Weekly rate (7 days)</span><span class="rate-amount">$300</span></div>
+        <div class="rate-row"><span class="rate-period">Damage deposit</span><span class="rate-amount">$150</span></div>
+        <p class="rate-note">Deposit fully refunded within 3&ndash;5 business days on clean, on-time return.</p>
+      </div>
+      <div class="rate-card">
+        <p class="rate-trailer">16&prime; Utility Trailer</p>
+        <div class="rate-row"><span class="rate-period">Daily rate</span><span class="rate-amount">$60</span></div>
+        
+        <div class="rate-row"><span class="rate-period">Weekly rate (7 days)</span><span class="rate-amount">$300</span></div>
+        <div class="rate-row"><span class="rate-period">Damage deposit</span><span class="rate-amount">$150</span></div>
+        <p class="rate-note">Late returns charged at an hourly rate. Return time agreed at pickup.</p>
+      </div>
+      <div class="rate-card">
+        <p class="rate-trailer">All rentals include</p>
+        <div class="rate-row"><span class="rate-period">Mileage fees</span><span class="rate-amount" style="color:#3b6d11;">$0</span></div>
+        <div class="rate-row"><span class="rate-period">Pre-rental inspection</span><span class="rate-amount" style="color:#3b6d11;">&#10003;</span></div>
+        <div class="rate-row"><span class="rate-period">Photo documentation</span><span class="rate-amount" style="color:#3b6d11;">&#10003;</span></div>
+        <div class="rate-row"><span class="rate-period">Rental agreement</span><span class="rate-amount" style="color:#3b6d11;">&#10003;</span></div>
+        <p class="rate-note">We walk through the trailer together at pickup and return — no disputes, no surprises.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section-alt" id="how">
+  <div class="section-inner">
+    <p class="eyebrow">Process</p>
+    <h2 class="section-title">How it works</h2>
+    <p class="section-sub">Four steps from reservation to project complete. We keep it simple so you can get to work.</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p class="step-title">Book online or by text</p>
+        <p class="step-desc">Use the booking calendar below or send a text. Pick your trailer, your dates, and pay the $150 deposit to lock it in.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p class="step-title">Sign the rental agreement</p>
+        <p class="step-desc">We&rsquo;ll send a digital rental agreement before pickup. Sign it from your phone in under two minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p class="step-title">Pick up in Warsaw</p>
+        <p class="step-desc">Come get it at your agreed time. We inspect the trailer together and document the condition with photos.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <p class="step-title">Return &amp; get your deposit back</p>
+        <p class="step-desc">Return it clean and on time. Deposit refunded within 3&ndash;5 business days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="booking">
+  <div class="booking-inner">
+    <div class="booking-left">
+      <p class="booking-eyebrow">Reserve now</p>
+      <h2 class="booking-title">Request a trailer &mdash; we'll confirm fast.</h2>
+      <p class="booking-desc">Fill out the form and we'll confirm availability and reach out within a few hours. Have questions? Call or text us directly at (260) 327-1340.</p>
+      <ul class="booking-checklist">
+        <li><span class="check-icon">&#10003;</span> We'll confirm availability within a few hours</li>
+        <li><span class="check-icon">&#10003;</span> Invoice and rental agreement sent to your email</li>
+        <li><span class="check-icon">&#10003;</span> Pickup address included with confirmation</li>
+        <li><span class="check-icon">&#10003;</span> $150 refundable deposit secures your reservation</li>
+      </ul>
+    </div>
+    <div class="booking-embed" style="background:transparent; border:none; padding:0; min-height:auto; width:100%;">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdTlwf8lfTgeeJ5Qg6BSnSUgu_ZBRbQ26SCv5Yd1ioP33KzSg/viewform?embedded=true" width="100%" height="2243" frameborder="0" marginheight="0" marginwidth="0" style="border-radius:12px; max-width:640px;">Loading…</iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-alt" id="faq">
+  <div class="section-inner">
+    <p class="eyebrow">Common questions</p>
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-sub">Everything you need to know before you book.</p>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <p class="faq-q">Do I need a truck to tow the trailers?</p>
+        <p class="faq-a">It depends on your load. The 5&times;8 dump trailer requires a 2&#x2075;&#x2044;&#x2081;&#x2086;&Prime; hitch ball. The 16&rsquo; Rogers Welding utility trailer has a 7,000 lb GVWR with a 2&Prime; ball coupler — any vehicle capable of towing the weight of your load can handle it. You are responsible for ensuring your tow vehicle is rated for your intended load. When in doubt, give us a call and we&rsquo;ll help you figure it out.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">How does the damage deposit work?</p>
+        <p class="faq-a">A $150 deposit is collected at booking. It&rsquo;s returned within 3&ndash;5 business days after the trailer comes back clean, undamaged, and on time. We document everything with photos at pickup and return.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Are there mileage fees?</p>
+        <p class="faq-a">None. You pay the flat daily rate and that&rsquo;s it. Drive it as far as you need &mdash; your bill stays the same.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Can I rent for multiple days?</p>
+        <p class="faq-a">Yes. Multi-day and weekly rates are available. Contact us before booking and we&rsquo;ll set up the right rate for your project timeline.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Where do I pick up and return?</p>
+        <p class="faq-a">Warsaw, Indiana. The exact address is provided with your booking confirmation. We&rsquo;re locally owned &mdash; you&rsquo;re picking up from a real neighbor.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">What if I return it late?</p>
+        <p class="faq-a">Late returns are charged at an hourly rate agreed at pickup. If you think you&rsquo;ll run long, just text us &mdash; we&rsquo;ll work with you as long as the trailer isn&rsquo;t already reserved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews-section" id="reviews">
+  <div class="section-inner">
+    <p class="eyebrow">Customer reviews</p>
+    <h2 class="section-title">What renters are saying</h2>
+    <div class="reviews-summary">
+      <div class="reviews-score">
+        <div class="score-num">5.0</div>
+        <div class="score-stars">★★★★★</div>
+        <div class="score-label">9 reviews<br>perfect rating</div>
+      </div>
+      <p class="reviews-blurb">Every renter has rated us 5 stars across overall experience, communication, and rental value. We take pride in clean equipment, clear communication, and flexible scheduling.</p>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Great trailer, great price. Owner was very friendly and accommodating."</p>
+        <div class="review-author">James Y. <span class="review-trailer">5×8 Dump Trailer</span></div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Great to work with! Will rent from him again!"</p>
+        <div class="review-author">Jason L. <span class="review-trailer">5×8 Dump Trailer</span></div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Second time I've rented this trailer — great experience."</p>
+        <div class="review-author">Joshua W. <span class="review-trailer">16' Utility Trailer</span></div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Trailer was exactly what we were looking for, it pulled great. Trailer was in good condition. Owner was very informational and helpful. Overall great experience."</p>
+        <div class="review-author">Greg F. <span class="review-trailer">16' Utility Trailer</span></div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Trailer was in excellent shape and pulled well. Very friendly and helpful with my first rental. Would highly recommend!!"</p>
+        <div class="review-author">Douglas D. <span class="review-trailer">16' Utility Trailer</span></div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Very nice, quality trailer that fit my needs perfectly. Owner was prompt in answering questions and very flexible with pick-up/drop-off times."</p>
+        <div class="review-author">Janusz K. <span class="review-trailer">16' Utility Trailer</span></div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Great trailer in good shape, pulls very well. Very good communication with the owner. Thank you, great support."</p>
+        <div class="review-author">Buddy B. <span class="review-trailer">16' Utility Trailer</span></div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Very useful dependable trailer. Courteous and flexible."</p>
+        <div class="review-author">Buddy B. <span class="review-trailer">16' Utility Trailer</span></div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Trailer worked out perfectly. Easy communications and meet up."</p>
+        <div class="review-author">Jim F. <span class="review-trailer">16' Utility Trailer</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-text">
+      <p class="contact-eyebrow">Get in touch</p>
+      <h2 class="contact-title">Questions? We respond fast.</h2>
+      <p class="contact-sub">Text or email us &mdash; we typically respond within a few hours.</p>
+    </div>
+    <div>
+      <div class="contact-actions">
+        <a href="sms:+12603271340" class="contact-btn sms">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Text us
+        </a>
+        <a href="mailto:rentals@kclemons.com" class="contact-btn email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+          Email us
+        </a>
+      </div>
+      <p class="contact-number">Prefer to call? <a href="tel:+12603271340">(260) 327-1340</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo">Clemons <span>Trailer</span> Rentals</p>
+    <p class="footer-location">Warsaw, Indiana &mdash; Kosciusko County</p>
+    <nav class="footer-links">
+      <a href="#trailers">Trailers</a>
+      <a href="#rates">Rates</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#booking">Book now</a>
+    </nav>
+    <p class="footer-copy">&copy; 2026 Clemons Trailer Rentals. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
