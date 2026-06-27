@@ -1089,6 +1089,32 @@
     var SITE_KEY = '6Le0ZDgtAAAADKTM19mynSELYngqBicoOjbVXKN';
     var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxA8PTvAHQnJpNhSoeaGtUuRVV8GdMfQFEChGGyzE-FcFEVsnzEtuMRRIZkCLrC7EP7/exec';
 
+    function sendPayload(form, btn, token) {
+      var payload = {
+        token:      token || '',
+        name:       document.getElementById('bf-name').value,
+        email:      document.getElementById('bf-email').value,
+        phone:      document.getElementById('bf-phone').value,
+        trailer:    document.getElementById('bf-trailer').value,
+        pickup:     document.getElementById('bf-pickup').value,
+        returnDate: document.getElementById('bf-return').value,
+        vehicle:    document.getElementById('bf-vehicle').value,
+        hauling:    document.getElementById('bf-hauling').value,
+        heard:      document.getElementById('bf-heard').value,
+        notes:      document.getElementById('bf-notes').value
+      };
+      fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+        .then(function() {
+          form.querySelectorAll('.form-group, .form-row, #bf-submit').forEach(function(el) { el.style.display = 'none'; });
+          document.getElementById('bf-success').style.display = 'block';
+        })
+        .catch(function() {
+          btn.disabled = false;
+          btn.textContent = 'Request rental →';
+          alert('Something went wrong. Please try again or call (260) 327-1340.');
+        });
+    }
+
     document.getElementById('bookingForm').addEventListener('submit', function(e) {
       e.preventDefault();
       var form = e.target;
@@ -1105,38 +1131,23 @@
       btn.disabled = true;
       btn.textContent = 'Sending…';
 
-      grecaptcha.ready(function() {
-        grecaptcha.execute(SITE_KEY, { action: 'submit' }).then(function(token) {
-          var payload = {
-            token: token,
-            name:       document.getElementById('bf-name').value,
-            email:      document.getElementById('bf-email').value,
-            phone:      document.getElementById('bf-phone').value,
-            trailer:    document.getElementById('bf-trailer').value,
-            pickup:     document.getElementById('bf-pickup').value,
-            returnDate: document.getElementById('bf-return').value,
-            vehicle:    document.getElementById('bf-vehicle').value,
-            hauling:    document.getElementById('bf-hauling').value,
-            heard:      document.getElementById('bf-heard').value,
-            notes:      document.getElementById('bf-notes').value
-          };
+      // Try reCAPTCHA with 4s timeout; fall back to submitting without token
+      var captchaDone = false;
+      var timeout = setTimeout(function() {
+        if (!captchaDone) { captchaDone = true; sendPayload(form, btn, ''); }
+      }, 4000);
 
-          fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(payload)
-          })
-          .then(function() {
-            form.querySelectorAll('.form-group, .form-row, #bf-submit').forEach(function(el) { el.style.display = 'none'; });
-            document.getElementById('bf-success').style.display = 'block';
-          })
-          .catch(function() {
-            btn.disabled = false;
-            btn.textContent = 'Request rental →';
-            alert('Something went wrong. Please try again or call (260) 327-1340.');
+      try {
+        grecaptcha.ready(function() {
+          grecaptcha.execute(SITE_KEY, { action: 'submit' }).then(function(token) {
+            if (!captchaDone) { captchaDone = true; clearTimeout(timeout); sendPayload(form, btn, token); }
+          }).catch(function() {
+            if (!captchaDone) { captchaDone = true; clearTimeout(timeout); sendPayload(form, btn, ''); }
           });
         });
-      });
+      } catch(err) {
+        if (!captchaDone) { captchaDone = true; clearTimeout(timeout); sendPayload(form, btn, ''); }
+      }
     });
   })();
 </script>
