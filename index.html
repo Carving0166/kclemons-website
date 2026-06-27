@@ -657,6 +657,26 @@
   }
 </style>
 <script src="https://www.google.com/recaptcha/api.js?render=6Le0ZDgtAAAADKTM19mynSELYngqBicoOjbVXKN"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<style>
+  .flatpickr-calendar { font-family: 'Inter', sans-serif; background: #1a2e1a; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+  .flatpickr-calendar.arrowTop:before, .flatpickr-calendar.arrowTop:after { border-bottom-color: #1a2e1a; }
+  .flatpickr-months { background: #1a2e1a; }
+  .flatpickr-month, .flatpickr-current-month, .flatpickr-monthDropdown-months { background: #1a2e1a; color: #fff; fill: #fff; }
+  .flatpickr-weekday { background: #1a2e1a; color: rgba(255,255,255,0.4); }
+  .flatpickr-day { color: rgba(255,255,255,0.8); border-radius: 4px; }
+  .flatpickr-day:hover { background: rgba(255,255,255,0.08); border-color: transparent; color: #fff; }
+  .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange { background: #5cb85c; border-color: #5cb85c; color: #fff; }
+  .flatpickr-day.inRange { background: rgba(92,184,92,0.2); border-color: transparent; }
+  .flatpickr-day.flatpickr-disabled, .flatpickr-day.flatpickr-disabled:hover { background: rgba(224,85,85,0.15); color: rgba(224,85,85,0.5); border-color: transparent; text-decoration: line-through; cursor: not-allowed; }
+  .flatpickr-day.today { border-color: rgba(92,184,92,0.4); }
+  .numInputWrapper span { border-color: rgba(255,255,255,0.1); }
+  .numInputWrapper span:hover { background: rgba(255,255,255,0.1); }
+  .numInputWrapper input { color: #fff; }
+  .flatpickr-prev-month svg, .flatpickr-next-month svg { fill: rgba(255,255,255,0.6); }
+  .flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg { fill: #fff; }
+</style>
 </head>
 <body>
 
@@ -925,9 +945,6 @@
         <label class="form-label" for="bf-notes">Questions or notes</label>
         <textarea class="form-textarea" id="bf-notes" name="entry.1873495350" placeholder="Anything else we should know?"></textarea>
       </div>
-      <div id="bf-date-warn" style="display:none; background:rgba(224,85,85,0.15); border:1px solid rgba(224,85,85,0.4); border-radius:var(--radius-sm); padding:10px 14px; font-size:13px; color:#f8a0a0;">
-        Those dates overlap with an existing confirmed rental for that trailer. Please choose different dates or call us at (260) 327-1340.
-      </div>
       <button class="form-submit" type="submit" id="bf-submit">Request rental &rarr;</button>
       <div class="form-success" id="bf-success">
         <div class="form-success-icon">&#10003;</div>
@@ -1092,46 +1109,58 @@
     var SITE_KEY = '6Le0ZDgtAAAADKTM19mynSELYngqBicoOjbVXKN';
     var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxA8PTvAHQnJpNhSoeaGtUuRVV8GdMfQFEChGGyzE-FcFEVsnzEtuMRRIZkCLrC7EP7/exec';
 
-    // Load confirmed bookings via JSONP
     var bookedRanges = [];
+    var pickupFp, returnFp;
+
+    function getDisabledRanges(trailer) {
+      return bookedRanges
+        .filter(function(b) {
+          if (!trailer) return true;
+          return !b.trailer || b.trailer.indexOf(trailer.slice(0, 3)) !== -1;
+        })
+        .map(function(b) { return { from: b.pickup, to: b.returnDate }; });
+    }
+
+    function initPickers() {
+      var trailer = document.getElementById('bf-trailer').value;
+      var disabled = getDisabledRanges(trailer);
+      var today = new Date().toISOString().slice(0, 10);
+
+      if (pickupFp) pickupFp.destroy();
+      if (returnFp) returnFp.destroy();
+
+      pickupFp = flatpickr('#bf-pickup', {
+        minDate: today,
+        disable: disabled,
+        dateFormat: 'm/d/Y',
+        altInput: true,
+        altFormat: 'm/d/Y',
+        onChange: function(sel) {
+          if (sel[0]) returnFp.set('minDate', sel[0]);
+        }
+      });
+
+      returnFp = flatpickr('#bf-return', {
+        minDate: today,
+        disable: disabled,
+        dateFormat: 'm/d/Y',
+        altInput: true,
+        altFormat: 'm/d/Y'
+      });
+    }
+
     window._availCallback = function(data) {
       bookedRanges = data.booked || [];
+      initPickers();
     };
+
     var s = document.createElement('script');
     s.src = SCRIPT_URL + '?callback=_availCallback';
     document.head.appendChild(s);
 
-    function dateStr(d) { return d.toISOString().slice(0, 10); }
-
-    function overlaps(pickup, ret, trailer) {
-      if (!pickup || !ret) return false;
-      return bookedRanges.some(function(b) {
-        if (trailer && b.trailer && b.trailer.indexOf(trailer.slice(0, 3)) === -1) return false;
-        return pickup <= b.returnDate && ret >= b.pickup;
-      });
-    }
-
-    function checkDates() {
-      var pickup  = document.getElementById('bf-pickup').value;
-      var ret     = document.getElementById('bf-return').value;
-      var trailer = document.getElementById('bf-trailer').value;
-      var warn    = document.getElementById('bf-date-warn');
-      if (pickup && ret && overlaps(pickup, ret, trailer)) {
-        warn.style.display = 'block';
-      } else {
-        warn.style.display = 'none';
-      }
-    }
-
     document.addEventListener('DOMContentLoaded', function() {
-      // Set min date to today
-      var today = dateStr(new Date());
-      document.getElementById('bf-pickup').min = today;
-      document.getElementById('bf-return').min = today;
-
-      document.getElementById('bf-pickup').addEventListener('change', checkDates);
-      document.getElementById('bf-return').addEventListener('change', checkDates);
-      document.getElementById('bf-trailer').addEventListener('change', checkDates);
+      initPickers();
+      document.getElementById('bf-trailer').addEventListener('change', initPickers);
     });
 
     function sendPayload(form, btn, token) {
@@ -1141,8 +1170,8 @@
         email:      document.getElementById('bf-email').value,
         phone:      document.getElementById('bf-phone').value,
         trailer:    document.getElementById('bf-trailer').value,
-        pickup:     document.getElementById('bf-pickup').value,
-        returnDate: document.getElementById('bf-return').value,
+        pickup:     pickupFp && pickupFp.selectedDates[0] ? pickupFp.formatDate(pickupFp.selectedDates[0], 'Y-m-d') : document.getElementById('bf-pickup').value,
+        returnDate: returnFp && returnFp.selectedDates[0] ? returnFp.formatDate(returnFp.selectedDates[0], 'Y-m-d') : document.getElementById('bf-return').value,
         vehicle:    document.getElementById('bf-vehicle').value,
         hauling:    document.getElementById('bf-hauling').value,
         heard:      document.getElementById('bf-heard').value,
