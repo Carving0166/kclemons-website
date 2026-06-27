@@ -866,7 +866,8 @@
         <li><span class="check-icon">&#10003;</span> $150 refundable deposit secures your reservation</li>
       </ul>
     </div>
-    <form class="booking-form" id="bookingForm" novalidate>
+    <iframe name="bf-hidden" id="bf-hidden" style="display:none;" aria-hidden="true"></iframe>
+    <form class="booking-form" id="bookingForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdTlwf8lfTgeeJ5Qg6BSnSUgu_ZBRbQ26SCv5Yd1ioP33KzSg/formResponse" method="POST" target="bf-hidden" novalidate>
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="bf-name">Full Name <span>*</span></label>
@@ -924,6 +925,14 @@
         <label class="form-label" for="bf-notes">Questions or notes</label>
         <textarea class="form-textarea" id="bf-notes" name="entry.1873495350" placeholder="Anything else we should know?"></textarea>
       </div>
+      <input type="hidden" name="entry.986232770_year" id="bf-pickup-year">
+      <input type="hidden" name="entry.986232770_month" id="bf-pickup-month">
+      <input type="hidden" name="entry.986232770_day" id="bf-pickup-day">
+      <input type="hidden" name="entry.140850730_year" id="bf-return-year">
+      <input type="hidden" name="entry.140850730_month" id="bf-return-month">
+      <input type="hidden" name="entry.140850730_day" id="bf-return-day">
+      <input type="hidden" name="fvv" value="1">
+      <input type="hidden" name="fbzx" value="7040097751372053401">
       <button class="form-submit" type="submit" id="bf-submit">Request rental &rarr;</button>
       <div class="form-success" id="bf-success">
         <div class="form-success-icon">&#10003;</div>
@@ -1085,63 +1094,40 @@
 
 <script>
   (function() {
-    var FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdTlwf8lfTgeeJ5Qg6BSnSUgu_ZBRbQ26SCv5Yd1ioP33KzSg/formResponse';
-
-    function splitDate(id) {
-      var val = document.getElementById(id).value;
-      if (!val) return {};
+    function splitDate(inputId, yearId, monthId, dayId) {
+      var val = document.getElementById(inputId).value;
+      if (!val) return;
       var parts = val.split('-');
-      return { year: parts[0], month: parseInt(parts[1], 10), day: parseInt(parts[2], 10) };
+      document.getElementById(yearId).value = parts[0];
+      document.getElementById(monthId).value = parseInt(parts[1], 10);
+      document.getElementById(dayId).value = parseInt(parts[2], 10);
     }
 
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var form = e.target;
-      var btn = document.getElementById('bf-submit');
+    var form = document.getElementById('bookingForm');
+    var iframe = document.getElementById('bf-hidden');
+    var submitted = false;
 
-      // Basic validation
+    form.addEventListener('submit', function(e) {
       var required = form.querySelectorAll('[required]');
       var valid = true;
       required.forEach(function(el) {
         if (!el.value.trim()) { el.style.borderColor = '#e05555'; valid = false; }
         else el.style.borderColor = '';
       });
-      if (!valid) return;
+      if (!valid) { e.preventDefault(); return; }
 
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
+      splitDate('bf-pickup', 'bf-pickup-year', 'bf-pickup-month', 'bf-pickup-day');
+      splitDate('bf-return', 'bf-return-year', 'bf-return-month', 'bf-return-day');
 
-      var pickup = splitDate('bf-pickup');
-      var ret = splitDate('bf-return');
+      submitted = true;
+      document.getElementById('bf-submit').disabled = true;
+      document.getElementById('bf-submit').textContent = 'Sending…';
+    });
 
-      var data = new FormData();
-      data.append('emailAddress', document.getElementById('bf-email').value);
-      data.append('entry.545568594', document.getElementById('bf-name').value);
-      data.append('entry.180355544', document.getElementById('bf-phone').value);
-      data.append('entry.274846906', document.getElementById('bf-trailer').value);
-      data.append('entry.986232770_year', pickup.year || '');
-      data.append('entry.986232770_month', pickup.month || '');
-      data.append('entry.986232770_day', pickup.day || '');
-      data.append('entry.140850730_year', ret.year || '');
-      data.append('entry.140850730_month', ret.month || '');
-      data.append('entry.140850730_day', ret.day || '');
-      data.append('entry.1736595569', document.getElementById('bf-vehicle').value);
-      data.append('entry.1983414696', document.getElementById('bf-hauling').value);
-      data.append('entry.40769490', document.getElementById('bf-heard').value);
-      data.append('entry.1873495350', document.getElementById('bf-notes').value);
-      data.append('fvv', '1');
-      data.append('fbzx', '7040097751372053401');
-
-      fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: data })
-        .then(function() {
-          form.querySelectorAll('.form-group, .form-row, #bf-submit').forEach(function(el) { el.style.display = 'none'; });
-          document.getElementById('bf-success').style.display = 'block';
-        })
-        .catch(function() {
-          btn.disabled = false;
-          btn.textContent = 'Request rental →';
-          alert('Something went wrong. Please try again or call (260) 327-1340.');
-        });
+    iframe.addEventListener('load', function() {
+      if (!submitted) return;
+      form.querySelectorAll('.form-group, .form-row, #bf-submit').forEach(function(el) { el.style.display = 'none'; });
+      document.getElementById('bf-success').style.display = 'block';
     });
   })();
 </script>
