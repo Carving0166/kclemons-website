@@ -287,16 +287,17 @@
   }
   .trailer-card.featured { border-color: var(--green-accent); border-width: 2px; }
   .trailer-img-wrap {
-    height: 160px;
+    height: 200px;
     background: var(--green-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
+    overflow: hidden;
   }
-  .trailer-icon {
-    font-size: 64px;
-    line-height: 1;
+  .trailer-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
   .featured-badge {
     position: absolute;
@@ -695,8 +696,8 @@
 
       <div class="trailer-card featured">
         <div class="trailer-img-wrap">
-          <span class="trailer-icon">🚛</span>
-          <span class="featured-badge">Most popular</span>
+          <img src="dumptrailer.jpg" alt="5x8 Griffin Dump Trailer">
+
         </div>
         <div class="trailer-body">
           <p class="trailer-name">5&times;8 Griffin Dump Trailer</p>
@@ -721,7 +722,7 @@
 
       <div class="trailer-card">
         <div class="trailer-img-wrap">
-          <span class="trailer-icon">🏗️</span>
+          <img src="utilitytrailer.jpg" alt="16ft Utility Trailer">
         </div>
         <div class="trailer-body">
           <p class="trailer-name">16&prime; Utility Trailer</p>
