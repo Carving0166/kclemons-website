@@ -434,31 +434,66 @@
   .booking-checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .booking-checklist li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: rgba(255,255,255,0.7); }
   .check-icon { color: var(--green-accent); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
-  .booking-embed {
+  .booking-form {
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: var(--radius-xl);
     padding: 2rem;
-    min-height: 420px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     gap: 1rem;
   }
-  .booking-embed-icon { font-size: 40px; opacity: 0.4; }
-  .booking-embed-title { font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.7); }
-  .booking-embed-sub { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; max-width: 260px; }
-  .booking-embed-code {
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    background: rgba(0,0,0,0.3);
-    color: var(--green-accent);
-    padding: 10px 16px;
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; }
+  .form-label span { color: var(--green-accent); }
+  .form-input, .form-select, .form-textarea {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: var(--radius-sm);
+    color: var(--white);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--green-accent);
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.25); }
+  .form-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1) opacity(0.4); cursor: pointer; }
+  .form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .form-select option { background: #1a2e1a; color: var(--white); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-submit {
+    background: var(--green-accent);
+    color: var(--green-dark);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 24px;
+    cursor: pointer;
+    transition: opacity 0.15s;
     margin-top: 0.5rem;
   }
+  .form-submit:hover { opacity: 0.88; }
+  .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    color: var(--white);
+  }
+  .form-success-icon { font-size: 40px; margin-bottom: 1rem; }
+  .form-success h3 { font-size: 20px; font-weight: 600; margin-bottom: 0.5rem; }
+  .form-success p { font-size: 14px; color: rgba(255,255,255,0.6); }
 
   /* FAQ */
   .faq-grid {
@@ -831,9 +866,71 @@
         <li><span class="check-icon">&#10003;</span> $150 refundable deposit secures your reservation</li>
       </ul>
     </div>
-    <div class="booking-embed" style="background:transparent; border:none; padding:0; min-height:auto; width:100%;">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdTlwf8lfTgeeJ5Qg6BSnSUgu_ZBRbQ26SCv5Yd1ioP33KzSg/viewform?embedded=true" width="100%" height="2243" frameborder="0" marginheight="0" marginwidth="0" style="border-radius:12px; max-width:640px;">Loading…</iframe>
-    </div>
+    <form class="booking-form" id="bookingForm" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="bf-name">Full Name <span>*</span></label>
+          <input class="form-input" type="text" id="bf-name" name="entry.545568594" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bf-phone">Phone <span>*</span></label>
+          <input class="form-input" type="tel" id="bf-phone" name="entry.180355544" placeholder="(260) 555-0100" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="bf-email">Email <span>*</span></label>
+        <input class="form-input" type="email" id="bf-email" name="emailAddress" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="bf-trailer">Which trailer? <span>*</span></label>
+        <select class="form-select" id="bf-trailer" name="entry.274846906" required>
+          <option value="">Choose a trailer</option>
+          <option value="5x8 Griffin Dump Trailer — $60/day">5×8 Griffin Dump Trailer — $60/day</option>
+          <option value="16' Utility Trailer — $60/day">16' Utility Trailer — $60/day</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="bf-pickup">Pickup Date <span>*</span></label>
+          <input class="form-input" type="date" id="bf-pickup" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bf-return">Return Date <span>*</span></label>
+          <input class="form-input" type="date" id="bf-return" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="bf-vehicle">Tow Vehicle (year, make, model) <span>*</span></label>
+        <input class="form-input" type="text" id="bf-vehicle" name="entry.1736595569" placeholder="2019 Ford F-150" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="bf-hauling">What are you hauling? <span>*</span></label>
+        <input class="form-input" type="text" id="bf-hauling" name="entry.1983414696" placeholder="Mulch, gravel, ATVs, furniture…" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="bf-heard">How did you hear about us?</label>
+        <select class="form-select" id="bf-heard" name="entry.40769490">
+          <option value="">Choose one</option>
+          <option value="Google Search">Google Search</option>
+          <option value="Google Maps">Google Maps</option>
+          <option value="Facebook Marketplace">Facebook Marketplace</option>
+          <option value="Facebook post or group">Facebook post or group</option>
+          <option value="Friend or neighbor referral">Friend or neighbor referral</option>
+          <option value="Returning customer">Returning customer</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="bf-notes">Questions or notes</label>
+        <textarea class="form-textarea" id="bf-notes" name="entry.1873495350" placeholder="Anything else we should know?"></textarea>
+      </div>
+      <button class="form-submit" type="submit" id="bf-submit">Request rental &rarr;</button>
+      <div class="form-success" id="bf-success">
+        <div class="form-success-icon">&#10003;</div>
+        <h3>Request received!</h3>
+        <p>We'll confirm availability and reach out within a few hours. Questions? Call or text (260) 327-1340.</p>
+      </div>
+    </form>
   </div>
 </section>
 
@@ -986,5 +1083,67 @@
   </div>
 </footer>
 
+<script>
+  (function() {
+    var FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdTlwf8lfTgeeJ5Qg6BSnSUgu_ZBRbQ26SCv5Yd1ioP33KzSg/formResponse';
+
+    function splitDate(id) {
+      var val = document.getElementById(id).value;
+      if (!val) return {};
+      var parts = val.split('-');
+      return { year: parts[0], month: parseInt(parts[1], 10), day: parseInt(parts[2], 10) };
+    }
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var btn = document.getElementById('bf-submit');
+
+      // Basic validation
+      var required = form.querySelectorAll('[required]');
+      var valid = true;
+      required.forEach(function(el) {
+        if (!el.value.trim()) { el.style.borderColor = '#e05555'; valid = false; }
+        else el.style.borderColor = '';
+      });
+      if (!valid) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      var pickup = splitDate('bf-pickup');
+      var ret = splitDate('bf-return');
+
+      var data = new FormData();
+      data.append('emailAddress', document.getElementById('bf-email').value);
+      data.append('entry.545568594', document.getElementById('bf-name').value);
+      data.append('entry.180355544', document.getElementById('bf-phone').value);
+      data.append('entry.274846906', document.getElementById('bf-trailer').value);
+      data.append('entry.986232770_year', pickup.year || '');
+      data.append('entry.986232770_month', pickup.month || '');
+      data.append('entry.986232770_day', pickup.day || '');
+      data.append('entry.140850730_year', ret.year || '');
+      data.append('entry.140850730_month', ret.month || '');
+      data.append('entry.140850730_day', ret.day || '');
+      data.append('entry.1736595569', document.getElementById('bf-vehicle').value);
+      data.append('entry.1983414696', document.getElementById('bf-hauling').value);
+      data.append('entry.40769490', document.getElementById('bf-heard').value);
+      data.append('entry.1873495350', document.getElementById('bf-notes').value);
+      data.append('fvv', '1');
+      data.append('fbzx', '7040097751372053401');
+
+      fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: data })
+        .then(function() {
+          form.querySelectorAll('.form-group, .form-row, #bf-submit').forEach(function(el) { el.style.display = 'none'; });
+          document.getElementById('bf-success').style.display = 'block';
+        })
+        .catch(function() {
+          btn.disabled = false;
+          btn.textContent = 'Request rental →';
+          alert('Something went wrong. Please try again or call (260) 327-1340.');
+        });
+    });
+  })();
+</script>
 </body>
 </html>
