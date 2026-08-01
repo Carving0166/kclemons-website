@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "https://kclemons.com/*"
+  to = "https://clemonstrailerrental.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.kclemons.com/*"
+  to = "https://clemonstrailerrental.com/:splat"
+  status = 301
+  force = true
